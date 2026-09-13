@@ -150,3 +150,42 @@
 - 为 `ls20` 实现 deterministic action probing，并记录每次动作带来的 grid diff、可逆性和状态变化。
 - 以 public games 为依据建立 object-centric 表示和动作语义假设表。
 - 在本地完成最小 Kaggle Notebook 草稿与离线检查；正式提交前再次取得明确确认。
+
+## 2026-09-13 双语 README、GitHub About 与依赖审计
+
+目标：为英文项目指南增加内容完整、表达自然的简体中文版本，完善 GitHub 仓库元数据，并核实本地依赖是否需要升级。
+
+假设：
+
+- 英文 README 继续作为 GitHub 默认入口，中文版单独存放在 `README.zh-CN.md`，两份文档顶部互相链接。
+- 依赖版本应优先匹配 Kaggle 当前官方比赛包，不能只因 PyPI 出现更高版本就升级。
+- 本轮不修改 agent 算法，不提交 Kaggle。
+
+已完成：
+
+- 新增完整简体中文 README，保留英文版的 19 个主题、评分公式、奖金表、时间线、规则、知识路线、架构、实验规范和命令。
+- 在两份 README 顶部加入 English / 简体中文切换入口。
+- 更新 GitHub About：增加项目简介、Kaggle 比赛主页和 8 个研究主题标签。
+- 重新下载 Kaggle 官方比赛压缩包，并与本地包比较大小和 SHA-256。
+- 核查 PyPI 与官方 changelog：`arc-agi==0.9.9` 只增加远程动作失败时的 HTTP 响应正文日志；Kaggle 包仍内置 `0.9.8`。
+- 将 `requirements-local.txt` 的直接运行依赖固定到 Kaggle 官方包内版本，并按该组合重新对齐本地 `.venv`。
+
+结果：
+
+- 中英文 README 分别有 83 个标题；中文版 1,019 行，代码块、HTML code 标签和内部链接检查通过。
+- GitHub About 简介、主页和 topics 已从远端读回确认，仓库仍为 Private。
+- 新下载包和本地包大小均为 `44,339,942` 字节，SHA-256 均为 `C72400A32DB5E48DA9014BAF893B48016B300E9A6A77BD5D505DE2B1EC61D645`。
+- 最终直接依赖为 `arc-agi 0.9.8`、`arcengine 0.9.3`、`Flask 3.1.3`、`matplotlib 3.10.8`、`numpy 2.4.4`、`pillow 12.2.0`、`pydantic 2.13.2`、`python-dotenv 1.2.2`、`requests 2.33.1`。
+- `pip check` 无依赖冲突，四个项目脚本通过 `py_compile`。
+- 对齐依赖后复跑 `ls20` seed 0、20 步 smoke，结果仍为 score `0.0`、完成 `0 / 7` 关、总动作 `20`；scorecard id 为 `add2d523-9ed1-4598-ad28-f9217648b30f`。
+
+失败/风险：
+
+- PyPI 的 `arc-agi` 比 Kaggle 包高一个补丁版本。本轮有意不升级，以保持比赛环境一致；Kaggle 包更新后需要重新评估。
+- 通用依赖即使版本相同，也可能因操作系统使用不同 wheel 构建；最终提交仍需在干净 Kaggle Notebook 中复核。
+- README 中的比赛状态和奖金属于 2026-09-13 快照，不能替代提交前实时核验。
+
+下一步：
+
+- 在 GitHub 页面确认中英文切换和 About 展示效果。
+- 开始 `ls20` deterministic action probing，实现机器可读的 action-effect 报告。

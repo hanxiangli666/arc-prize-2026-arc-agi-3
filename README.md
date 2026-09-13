@@ -1,5 +1,7 @@
 # ARC Prize 2026: ARC-AGI-3
 
+**Languages:** [English](README.md) | [简体中文](README.zh-CN.md)
+
 This repository is a reproducible research workspace for the **ARC Prize 2026 - ARC-AGI-3** Kaggle competition. The project studies how an AI agent can enter a previously unseen interactive environment, discover its controls and objectives, form a compact model of the environment, and complete increasingly difficult levels with as few actions as possible.
 
 The development strategy is evidence-driven: understand the benchmark and evaluation protocol first, build reliable local tooling, establish simple baselines, inspect failures, and introduce more complex methods only when controlled experiments justify them.
@@ -675,6 +677,7 @@ Checklist:
 ```text
 arc-prize-2026-arc-agi-3/
 |-- README.md
+|-- README.zh-CN.md
 |-- requirements-local.txt
 |-- data/
 |   |-- raw/                 # Kaggle archive and extracted official files; ignored
@@ -714,7 +717,9 @@ The verified local configuration uses:
 - `arc-agi==0.9.8` from the competition package;
 - `arcengine==0.9.3` from the competition package.
 
-Upstream packages may publish newer versions. Use the versions bundled with the current Kaggle competition package when reproducing competition behavior.
+The current Kaggle archive was downloaded again and hash-checked on September 13, 2026. It is byte-for-byte identical to the local archive and still bundles `arc-agi==0.9.8` and `arcengine==0.9.3`. PyPI offers `arc-agi==0.9.9`, whose official changelog only adds the HTTP response body to remote-action error logs. This project intentionally remains on `0.9.8` to match the Kaggle package. Re-run the package audit before changing this pin.
+
+`requirements-local.txt` also pins the direct runtime dependencies to the versions included in the verified competition archive. This prevents a clean installation from silently drifting to newer NumPy, Matplotlib, Pydantic, or HTTP-library versions.
 
 ### 1. Clone the private repository
 
@@ -750,8 +755,8 @@ uv venv .venv --python 3.12
 Install general dependencies and the competition-bundled toolkit wheels:
 
 ```powershell
-.\.venv\Scripts\python.exe -m pip install numpy flask matplotlib pydantic python-dotenv pillow requests
-.\.venv\Scripts\python.exe -m pip install .\data\raw\extracted\arc_agi_3_wheels\arcengine-0.9.3-py3-none-any.whl .\data\raw\extracted\arc_agi_3_wheels\arc_agi-0.9.8-py3-none-any.whl
+.\.venv\Scripts\python.exe -m pip install -r requirements-local.txt
+.\.venv\Scripts\python.exe -m pip install --force-reinstall --no-deps .\data\raw\extracted\arc_agi_3_wheels\arcengine-0.9.3-py3-none-any.whl .\data\raw\extracted\arc_agi_3_wheels\arc_agi-0.9.8-py3-none-any.whl
 ```
 
 ### 4. Verify imports

@@ -1,9 +1,11 @@
+# Match the direct runtime versions bundled with the Kaggle archive verified
+# on 2026-09-13. Re-audit the official package before changing these pins.
 arc-agi==0.9.8
 arcengine==0.9.3
-flask
-matplotlib
-numpy
-pillow
-pydantic
-python-dotenv
-requests
+flask==3.1.3
+matplotlib==3.10.8
+numpy==2.4.4
+pillow==12.2.0
+pydantic==2.13.2
+python-dotenv==1.2.2
+requests==2.33.1
