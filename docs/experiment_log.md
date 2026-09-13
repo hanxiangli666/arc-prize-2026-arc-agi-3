@@ -79,3 +79,35 @@
 - 为 `ls20` 写动作探针，记录每个 action 对 grid、位置、level 状态的影响。
 - 用可视化辅助识别 `keyboard` 类 game 的角色、目标、障碍和奖励色块。
 - 准备最小 Kaggle Notebook 草稿；正式提交前需要你明确确认。
+
+## 2026-09-13 独立私有仓库迁移
+
+目标：将 ARC-AGI-3 从共享 Kaggle 父仓库拆出，保留相关提交历史，并建立独立私有 GitHub 远端和本地工作目录。
+
+假设：
+
+- 新本地目录为 `D:\02_Projects\arc-prize-2026-arc-agi-3`。
+- 新远端为私有仓库 `hanxiangli666/arc-prize-2026-arc-agi-3`。
+- 保留父仓库旧目录作为迁移回滚副本，完成验证前不删除。
+- 不提交 Kaggle；女朋友的 collaborator 邀请由仓库所有者稍后完成。
+
+已完成：
+
+- 核实新 GitHub 仓库为空且可见性为 Private。
+- 从父仓库过滤出只涉及 ARC 子目录的 3 个提交。
+- 将独立历史推送到新仓库 `main`，并克隆到新本地目录。
+- 复制被 Git 忽略的本地数据、recordings 和可视化产物。
+- 补齐独立仓库对 `data/working/` 和 `outputs/figures/` 的忽略规则。
+- 用 Python 3.12.13 重建 `.venv`，确认 `arc_agi==0.9.8` 和 `arcengine==0.9.3` 可导入。
+- 通过四个项目脚本的语法检查，并在新目录复跑 `ls20` seed 0、20 步 random smoke。
+
+结果：
+
+- 新目录 smoke baseline 仍为 score = 0.0、levels_completed = 0 / 7、total_actions = 20。
+- 动作序列与原 seed 0 基线一致，说明迁移前后运行行为可复现。
+- 本次迁移验证 scorecard id 为 `4dc00265-5dc4-4952-b545-56cffcd7a263`，记录位于已忽略的 `outputs/runs/recordings/`。
+
+风险与下一步：
+
+- 父仓库仍保留旧 ARC 目录；新仓库验证通过后，再经确认执行精确移除。
+- 女朋友尚未加入 GitHub 私有仓库，需要仓库所有者稍后发送 collaborator 邀请。

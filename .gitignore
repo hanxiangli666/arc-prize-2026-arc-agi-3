@@ -5,4 +5,6 @@ __pycache__/
 
 data/raw/*.zip
 data/raw/extracted/
+data/working/
 outputs/runs/recordings/
+outputs/figures/

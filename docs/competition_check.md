@@ -24,6 +24,12 @@
 - `kaggle competitions submissions -c arc-prize-2026-arc-agi-3` 返回无提交。
 - Code Requirements 仍显示 Notebook-only、CPU/GPU Notebook 均不超过 9 小时、Internet disabled、允许公开外部数据和预训练模型、submission file 自动生成。
 
+## 2026-09-13 仓库位置更新
+
+- 当前真实项目目录已迁移为 `D:\02_Projects\arc-prize-2026-arc-agi-3`。
+- 独立远端为私有 GitHub 仓库 `hanxiangli666/arc-prize-2026-arc-agi-3`。
+- 本次只更新仓库位置；比赛状态仍以重新运行 Kaggle CLI 的结果为准。
+
 ## Timeline
 
 - 2026-03-25：Start Date。

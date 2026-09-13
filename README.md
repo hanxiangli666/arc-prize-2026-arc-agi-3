@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-- 当前真实项目目录：`D:\02_Projects\08_Kaggle\arc-prize-2026-arc-agi-3`。
+- 当前真实项目目录：`D:\02_Projects\arc-prize-2026-arc-agi-3`。
 - Kaggle CLI 已核实账号已报名：`userHasEntered=True`。
 - 原始比赛包已下载到 `data/raw/arc-prize-2026-arc-agi-3.zip`，并解压到 `data/raw/extracted/`。
 - 本地 Python 3.12 虚拟环境在 `.venv/`，已能 import `arc_agi==0.9.8` 和 `arcengine==0.9.3`。
@@ -36,5 +36,6 @@ Kaggle 页面显示本赛是 Notebook-only code competition，每天最多 1 次
 ## 迁移记录
 
 - 旧工作区曾在 E 盘；当前不要再使用 E 盘路径。
-- D 盘迁移后，Git 保留了文档、脚本和 `outputs/runs/random_smoke_ls20_seed0.json`。
+- 2026-08-21 迁移到 `D:\02_Projects\08_Kaggle\arc-prize-2026-arc-agi-3`，Git 保留了文档、脚本和 `outputs/runs/random_smoke_ls20_seed0.json`。
 - 被 `.gitignore` 排除的原始包、解压数据、`.venv`、recordings 和 HTML 可视化已在 D 盘项目目录内重建。
+- 2026-09-13 从 Kaggle 父仓库拆出独立提交历史，并迁移到当前目录；远端为私有仓库 `hanxiangli666/arc-prize-2026-arc-agi-3`。
