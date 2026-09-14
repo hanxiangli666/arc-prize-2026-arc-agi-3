@@ -189,3 +189,46 @@
 
 - 在 GitHub 页面确认中英文切换和 About 展示效果。
 - 开始 `ls20` deterministic action probing，实现机器可读的 action-effect 报告。
+
+## 2026-09-13 中文 README 复核与 Windows 环境验收
+
+目标：逐项检查中文版是否忠实于英文原文并减少翻译腔，同时在当前 Windows 电脑上重新验证项目环境。
+
+假设：
+
+- 技术文档需要保留公式、表格和实验阶段结构，但正文应使用自然、直接的中文。
+- 软件包版本以 Python distribution metadata 和 Kaggle 官方比赛包为准，不能依赖模块内可能过期的 `__version__` 常量。
+- 本轮不修改 agent 算法，不提交 Kaggle。
+
+已完成：
+
+- 对照英文 README 和 ARC-AGI-3 官方 scoring methodology，复核任务、动作、数据划分、评分、奖金、时间线和组队规则。
+- 修正“服务于实验”“上中位数轨迹”“可获取性”“墙钟运行时间”等直译表达。
+- 补入 upper median 的准确例子：4 人通关取第 3 名，5 人通关仍取第 3 名。
+- 减少正文中不必要的 `Agent`、`frame`、`scorecard`、`recording` 和 `seed` 混用；首次定义、API 名称和命令参数继续保留英文。
+- 改写开场、数据划分、研究阶段、基线解释和项目原则中的模板化句子。
+- 核实操作系统、PowerShell、Python 安装、项目虚拟环境、数据目录、依赖、脚本和最小运行链路。
+
+结果：
+
+- 系统为 64 位 Windows 11，PowerShell 为 `7.6.5`。
+- 全局默认 Python 为 `3.14.4`，项目 `.venv` 独立使用 Python `3.12.13`，解释器路径为 `D:\02_Projects\arc-prize-2026-arc-agi-3\.venv\Scripts\python.exe`。
+- `.venv`、官方 ZIP、解压环境、官方 wheels、working 数据、runs 和 figures 均存在。
+- 安装元数据为 `arc-agi==0.9.8` 和 `arcengine==0.9.3`；`pip check` 无依赖冲突。
+- 四个项目脚本通过 `py_compile`。
+- 数据清单仍为 25 个公开游戏、183 个关卡和 17,135 个人类基线动作。
+- `ls20` seed 0、20 步 smoke 仍为 score `0.0`、完成 `0 / 7` 关，动作序列与受控基线完全一致。
+- 中英文 README 都有 83 个标题，外部链接集合一致；中文代码块、HTML code 标签、目录锚点和 Markdown diff 检查通过。
+- 针对常见 AI 写作词、否定式排比和已发现直译词的复查没有剩余命中。
+
+失败/风险：
+
+- 首次汇总 CSV 时误用了不存在的 `level_count` 和 `human_baseline_actions` 字段，导致两个合计为空；按真实字段 `levels` 和 `baseline_total_actions` 重算后得到 183 和 17,135。
+- 官方 `arcengine==0.9.3` wheel 内部仍保留 `arcengine.__version__ = 0.1.0`；实际版本必须通过 `importlib.metadata.version('arcengine')` 查询。
+- 直接运行全局 `python` 会进入 3.14 环境。项目命令必须显式调用 `.venv\Scripts\python.exe`。
+- 本轮只证明 Windows 本地环境完整和可复现，尚未证明 Kaggle Notebook 运行环境或 agent 解题能力。
+
+下一步：
+
+- 在后续文档改动中同时维护中英文 README，避免事实和命令发生漂移。
+- 开始 `ls20` 的确定性动作探测实验。

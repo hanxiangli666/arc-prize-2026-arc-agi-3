@@ -232,7 +232,7 @@ ARC-AGI-3 evaluates both **completion** and **efficiency**. The metric is called
 
 ### Human baseline
 
-Human baselines were collected from first-time players under controlled conditions. For each level, completed human runs are ranked by action count. The upper-median proficient run is selected as the baseline. This reduces sensitivity to unusually lucky or unusually inefficient playthroughs.
+Human baselines were collected from first-time players under controlled conditions. For each level, completed runs are ordered from fewest to most actions. An odd number of runs uses the middle entry; an even number uses the slower of the two middle entries. For example, both four and five completed runs use the third-ranked run. This upper-median rule represents proficient human play without letting a lucky speed-run determine the baseline.
 
 Let:
 
@@ -721,6 +721,8 @@ The current Kaggle archive was downloaded again and hash-checked on September 13
 
 `requirements-local.txt` also pins the direct runtime dependencies to the versions included in the verified competition archive. This prevents a clean installation from silently drifting to newer NumPy, Matplotlib, Pydantic, or HTTP-library versions.
 
+Always run project commands through `.\.venv\Scripts\python.exe`. A bare `python` command may resolve to a global Python installation that this project has not verified.
+
 ### 1. Clone the private repository
 
 ```powershell
@@ -762,8 +764,10 @@ Install general dependencies and the competition-bundled toolkit wheels:
 ### 4. Verify imports
 
 ```powershell
-.\.venv\Scripts\python.exe -c "import arc_agi, arcengine; print(arc_agi.__file__); print(arcengine.__file__)"
+.\.venv\Scripts\python.exe -c "from importlib.metadata import version; import arc_agi, arcengine; print('arc-agi', version('arc-agi'), arc_agi.__file__); print('arcengine', version('arcengine'), arcengine.__file__)"
 ```
+
+Use distribution metadata for version checks. The official `arcengine==0.9.3` wheel currently retains an outdated internal `arcengine.__version__` value of `0.1.0`.
 
 ### 5. Verify the project scripts
 
